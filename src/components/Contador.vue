@@ -1,60 +1,109 @@
+<!-- A base de HTML -->
 <template>
-  <h2>{{titulo}}</h2>
-  <p>{{ numero }}<sup>2</sup>={{calcularCuadradoComputado}}</p>
-  <p>{{ numero }}<sup>2</sup>={{calcularCuadradoComputado}}</p>
-  <div>
-    <button v-on:click="incrementar()">+1</button>
-    <button v-on:click="decrementar()">-1</button>
-</div>
-</template>
-
-<script>
-import { defineSSRCustomElement } from 'vue';
-
-export default {
+  <h2>{{ encabezado }}: {{ valor2 }}</h2>
+  <p>{{ numero }} <sup>2</sup> = {{ calcularCuadradoComputed }}</p>
+  <p>{{ numero }} <sup>2</sup> = {{ calcularCuadradoComputed }}</p>
  
-  
-  data(){
+    <div>
+        <button v-on:click="incrementar()">+1</button>
+        <button v-on:click="decrementar()">-1</button>
+    </div>
+ 
+    <div>
+      <h1 v-if="esVerdad">"Feliz Navidad"</h1>
+    </div>
+</template>
+ 
+<!-- A base de JavaScript -->
+<script>
+export default {
+  data() {
     return {
-      numero:10, 
-      titulo:'Contador'
-    }
+      numero: this.valor,
+      titulo: "Contador",
+    };
   },
-  methods:{
-    calcularCuadrado(){
-      console.log("Entro a calcular");
-    return this.numero*this.numero;
-  
-  },
-  incrementar(){
+ 
+  methods: {
+    calcularCuadrado() {
+        console.log("Método calcularCuadrado");
+      return this.numero * this.numero;
+    },
+    incrementar() {
       this.numero++;
     },
-    decrementar(){
+    decrementar() {
       this.numero--;
-    }
-
+    },
   },
+ 
   computed:{
-    calcularCuadradoComputado(){
-      console.log('Entro a calcular computado');
-      return this.numero * this.numero;
+    calcularCuadradoComputed(){
+        console.log("Método calcularCuadradoComputed");
+        return this.numero * this.numero;
+    }
+  },
+ 
+  //Primera forma de declarar
+  //props: ['encabezado', 'valor']
+ 
+  //Segunda forma de declarar
+  props: {
+    encabezado: {
+    type: String,
+    validator(value) {
+      // Retorna false si el valor contiene la letra "a"
+      return !value.includes('a');
+    }
+  },
+    valor: Number,
+    valor2: {
+      type: Number,
+      required: false,
+      default: 77,
+      validator(value){
+        //programo mi validacion bajo mi criterio y retorno true 
+        //cuando es valido para mi
+        //retorno false cuando no es valido para mi
+        return value<=77;
+
+      }
+    },
+    esVerdad: {
+      type: Boolean,
+      required: true,
+    },
+    arreglo: Array,
+    fecha: Date,
+    objetoPersona: Object,
   }
-  }
+ 
 };
 </script>
-
+ 
+<!-- A base de CSS -->
 <style>
-button{
-  background: #64B687;
-  border-radius:5px;
-  border:1px solid white;
-  color:white;
-  cursor: pointer;
-  margin: 0px 5px;
-  padding: 5px 15px;
-
+h2 {
+  box-shadow: #64B687 5px 5px 5px;
+  color: blue;
 }
-button:hover{
-  background: #5aa67b;
+p {
+  color: red;
+}
+div {
+  margin-top: 20px;
+}
+button {
+    background-color: #64B687;
+    border-radius: 5px;
+    border: 1px solid white;
+    color: white;
+    cursor: pointer;
+    margin: 0px 5px;
+    padding: 5px 10px;  
+}
+ 
+button:hover {
+    background-color: #5AA67B;
 }
 </style>
