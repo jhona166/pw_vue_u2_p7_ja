@@ -57,8 +57,8 @@ img {
   max-width: 100%;
   width: 100vw;
   position: fixed;
-  top: 0px;
-  left: 0px;
+  top: 10px;
+  left: 10px;
 }
 
 .seccion-pregunta {
